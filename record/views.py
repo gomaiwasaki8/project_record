@@ -55,3 +55,19 @@ class MealCreateView(LoginRequiredMixin, generic.CreateView):
         messages.error(self.request, "日記の作成に失敗しました。")
         return super().form_invalid(form)
 
+class MealUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView): # UpdateViewクラスを継承している
+    model = Meal
+    template_name = 'meal_update.html'
+    form_class = MealCreateForm # 記録作成機能にも使ったフォームを使いまわしてる。
+
+    def get_success_url(self): # オーバーライド
+        return reverse_lazy('record:meal_detail', kwargs = {'pk': self.kwargs['pk']})
+
+    def form_valid(self, form): # 更新が成功した時の処理。formはユーザが入力したのが入っている。オーバーライド。
+        messages.success(self.request, "日記を更新しました。")
+        return super().form_valid(form)
+
+    def form_invalid(self, form): # オーバーライド
+        messages.error(self.request, "日記の更新に失敗しました。")
+        return super().form_invalid(form)
+
