@@ -48,11 +48,11 @@ class MealCreateView(LoginRequiredMixin, generic.CreateView):
         meal = form.save(commit = False) # 日記をセーブ（登録）する。commit=Falseはまだすべての情報が入っていないからコミットしないって意味
         meal.user = self.request.user # ユーザ名を入れている（ユーザが入力しないでいいようにこっちでユーザ名をセットする）
         meal.save()
-        messages.success(self.request, "日記を作成しました。")
+        messages.success(self.request, "記録を作成しました。")
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "日記の作成に失敗しました。")
+        messages.error(self.request, "記録の作成に失敗しました。")
         return super().form_invalid(form)
 
 class MealUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView): # UpdateViewクラスを継承している
@@ -64,10 +64,19 @@ class MealUpdateView(LoginRequiredMixin, OnlyYouMixin, generic.UpdateView): # Up
         return reverse_lazy('record:meal_detail', kwargs = {'pk': self.kwargs['pk']})
 
     def form_valid(self, form): # 更新が成功した時の処理。formはユーザが入力したのが入っている。オーバーライド。
-        messages.success(self.request, "日記を更新しました。")
+        messages.success(self.request, "記録を更新しました。")
         return super().form_valid(form)
 
     def form_invalid(self, form): # オーバーライド
         messages.error(self.request, "日記の更新に失敗しました。")
         return super().form_invalid(form)
 
+
+class MealDeleteView(LoginRequiredMixin, OnlyYouMixin, generic.DeleteView):
+    model = Meal
+    template_name = 'meal_delete.html'
+    success_url = reverse_lazy('record:meal_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "記録を削除しました。")
+        return super().delete(request, *args, **kwargs)
