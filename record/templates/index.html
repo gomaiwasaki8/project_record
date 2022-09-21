@@ -1,76 +1,50 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Web上にあなた専用の日記ページを保存できるサービス | Private Diary{% endblock %}
+{% block title %}CSSテスト{% endblock %}
 
-{% block header%}
-<header class="masthead text-center text-white">
-  <div class="masthead-content">
-    <div class="container">
-      <h1 class="masthead-heading mb-0">Private Diary</h1>
-      <h2 class="masthead-subheading mb-0">あなた専用の日記保存サービス</h2>
-      <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl rounded-pill mt-5">LOG IN</a>
-    </div>
-  </div>
-  <div class="bg-circle-1 bg-circle"></div>
-  <div class="bg-circle-2 bg-circle"></div>
-  <div class="bg-circle-3 bg-circle"></div>
-  <div class="bg-circle-4 bg-circle"></div>
-</header>
-{% endblock %}
+    <body>
+    {% block header%}
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">サブタイトル的な文</span>
+                <span class="site-heading-lower">タイトル</span>
+            </h1>
+        </header>
+    {% endblock %}
 
-{% block contents %}
-<section>
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 order-lg-2">
-        <div class="p-5">
-          <img class="img-fluid rounded-circle" src="{% static 'img/01.jpg' %}" alt="">
-        </div>
-      </div>
-      <div class="col-lg-6 order-lg-1">
-        <div class="p-5">
-          <h2 class="display-4">Web Diary</h2>
-          <p>Web上で作成/編集/削除ができる日記</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    {% block contents %}
+        <section class="page-section clearfix">
+            <div class="container">
+                <div class="intro">
+                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="static/assets/img/intro.jpg" alt="..." />
+                    <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-upper">なんか文</span>
+                            <span class="section-heading-lower">長めのなんか文</span>
+                        </h2>
+                        <p class="mb-3">すごい長い文</p>
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="#!">ボタン</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner bg-faded text-center rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">Our Promise</span>
+                                <span class="section-heading-lower">To You</span>
+                            </h2>
+                            <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you with friendly service, a welcoming atmosphere, and above all else, excellent products made with the highest quality ingredients. If you are not satisfied, please let us know and we will do whatever we can to make things right!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
 
-<section>
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <div class="p-5">
-          <img class="img-fluid rounded-circle" src="{% static 'img/02.jpg' %}" alt="">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="p-5">
-          <h2 class="display-4">Save Your Diary</h2>
-          <p>あなたの日記をWebに保存</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6 order-lg-2">
-        <div class="p-5">
-          <img class="img-fluid rounded-circle" src="{% static 'img/03.jpg' %}" alt="">
-        </div>
-      </div>
-      <div class="col-lg-6 order-lg-1">
-        <div class="p-5">
-          <h2 class="display-4">Membership System</h2>
-          <p>会員制のWeb日記サービス</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{% endblock %}
+    </body>
+</html>

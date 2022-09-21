@@ -2,62 +2,53 @@
 
 <html lang="ja">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>{% block title %}{% endblock %}</title>
-
-    <!-- Bootstrap core CSS -->
-<!--    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">-->
-
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <!-- 後の行の方が適用されるがwarningになるっぽいのでコメントアウトしている -->
-<!-- <link href="{% static 'css/one-page-wonder.min.css' %}" rel="stylesheet"> -->
-    <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
-
-    <!-- My style -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
-    {% block head %}{% endblock %}
-  </head>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <title>{% block title %}{% endblock %}</title>
+      <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+      <!-- Font Awesome icons (free version)-->
+      <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+      <!-- Google fonts-->
+      <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+      <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
+      <!-- My style -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
+    </head>
 
   <body>
 	<div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
           <div class="container">
-            <a class="navbar-brand" href="{% url 'record:index' %}">PRIVATE DIARY</a>
+            <a class="navbar-brand" href="{% url 'record:index' %}">タイトル</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item {% block active_inquiry %}{% endblock %}">
-                  <a class="nav-link" href="{% url 'record:index'%}">INQUIRY</a>
-                </li>
-
-              </ul>
               <ul class="navbar-nav ml-auto">
               <!-- ログインしていた場合のみログアウトのメニューを表示 -->
                 {% if user.is_authenticated %}
                   <li class = "nav-item">
-                    <a class = "nav-link" href = "{% url 'account_logout' %}">Log Out</a>
+                    <a class = "nav-link" href = "{% url 'account_logout' %}">ログアウト</a>
                   </li>
                 {% else %}
                   <!-- ログインしていなかったらサインアップのメニュー表示 -->
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                    <a class="nav-link" href="{% url 'account_signup' %}">サインアップ</a>
                   </li>
                   <!-- ログインしていなかったらログインのメニュー表示 -->
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                    <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
                   </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li class = "nav-item">
+                  <a class = "nav-link" href = "#">記録一覧</a>
+                </li>
                 {% endif %}
               </ul>
             </div>
@@ -93,9 +84,6 @@
           <!-- /.container -->
         </footer>
 
-        <!-- Bootstrap core JavaScript -->
-<!--        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>-->
-<!--        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>-->
   	</div>
   </body>
 

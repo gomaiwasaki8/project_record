@@ -10,4 +10,7 @@ from django.shortcuts import get_object_or_404
 class IndexView(generic.TemplateView):
     template_name = "index.html"
 
+class Index2View(generic.TemplateView):
+    template_name = "index2.html"
+
 # class RecordListView(generic.ListView):
