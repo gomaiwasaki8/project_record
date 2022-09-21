@@ -23,7 +23,7 @@ LOGGING = {
             'level': 'INFO',
         },
         # diaryアプリケーションが利用するロガー
-        'diary': {
+        'record': {
             'handlers':['console'],
             'level': 'DEBUG',
         },
@@ -50,3 +50,9 @@ LOGGING = {
         },
     }
 }
+
+# メール処理で使うバックエンドを定義（開発時のメール配信先設定）つまり入力されたものがコンソールに表示される
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# メディアファイルの配置場所を指定
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # BASE_DIRはsettings_commonで定義されている

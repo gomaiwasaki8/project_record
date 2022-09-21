@@ -44,7 +44,21 @@
 
               </ul>
               <ul class="navbar-nav ml-auto">
-
+              <!-- ログインしていた場合のみログアウトのメニューを表示 -->
+                {% if user.is_authenticated %}
+                  <li class = "nav-item">
+                    <a class = "nav-link" href = "{% url 'account_logout' %}">Log Out</a>
+                  </li>
+                {% else %}
+                  <!-- ログインしていなかったらサインアップのメニュー表示 -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                  </li>
+                  <!-- ログインしていなかったらログインのメニュー表示 -->
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                  </li>
+                {% endif %}
               </ul>
             </div>
           </div>
