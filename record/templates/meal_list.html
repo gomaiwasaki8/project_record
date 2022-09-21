@@ -15,19 +15,19 @@
         <div class="my-div-style w-100">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="#">新規作成</a>
+                    <a class="btn btn-primary float-right" href="{% url 'record:meal_create' %}">新規作成</a>
                 </div>
-                {% for record in record_list %}
+                {% for meal in meal_list %}
                     <div class="post-preview">
                         <a href="#">
                           <h2 class="post-title">
-                            {{ diary.title }}
+                            {{ meal.title }}
                           </h2>
                           <h3 class="post-subtitle">
-                            {{ record.content|truncatechars:20 }}
+                            {{ meal.content|truncatechars:20 }}
                           </h3>
                         </a>
-                        <p class="post-meta">{{ record.created_at }}</p>
+                        <p class="post-meta">{{ meal.created_at }}</p>
                     </div>
                     <hr>
                 {% empty %}
