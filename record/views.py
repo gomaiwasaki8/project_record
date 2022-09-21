@@ -7,6 +7,16 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from . models import Meal
 from django.shortcuts import get_object_or_404
+
+class OnlyYouMixin(UserPassesTestMixin):  # 日記作成者のみ閲覧できる機能
+    raise_exception = True
+
+    def test_func(self):
+        # URLに埋め込まれた主キーから日記データを1件取得。取得できなかった場合は404エラー
+        meal = get_object_or_404(Meal, pk = self.kwargs['pk'])
+        # ログインユーザと日記の作成ユーザを比較し、異なればraise_exeptionの設定に従う
+        return self.request.user == meal.user
+
 class IndexView(generic.TemplateView):
     template_name = "index.html"
 
@@ -20,6 +30,13 @@ class MealListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         diaries = Meal.objects.filter(user = self.request.user).order_by('-created_at')
         return diaries
+
+
+# 日記詳細表示のクラス
+class MealDetailView(LoginRequiredMixin, OnlyYouMixin, generic.DetailView):
+    # 詳細画面を表示するにはモデル（データベースと連携させるモデル）が必要
+    model = Meal
+    template_name = 'meal_detail.html'
 
 class MealCreateView(LoginRequiredMixin, generic.CreateView):
     model = Meal

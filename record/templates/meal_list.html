@@ -19,7 +19,7 @@
                 </div>
                 {% for meal in meal_list %}
                     <div class="post-preview">
-                        <a href="#">
+                        <a href="{% url 'record:meal_detail' meal.pk %}">
                           <h2 class="post-title">
                             {{ meal.title }}
                           </h2>
