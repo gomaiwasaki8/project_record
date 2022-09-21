@@ -45,9 +45,10 @@
                     <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
                   </li>
                 {% endif %}
+                <!--  -->
                 {% if user.is_authenticated %}
                 <li class = "nav-item">
-                  <a class = "nav-link" href = "#">記録一覧</a>
+                  <a class = "nav-link {% block active_record_list %}{% endblock %}" href = "{% url 'record:meal_list' %}">記録一覧</a>
                 </li>
                 {% endif %}
               </ul>

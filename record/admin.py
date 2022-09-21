@@ -1,3 +1,5 @@
 from django.contrib import admin
+# 同じディレクトリのmodelsファイルのMealっていうのをインポート
+from . models import Meal
 
-# Register your models here.
+admin.site.register(Meal)
