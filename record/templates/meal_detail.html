@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}日記詳細 | Private Diary{% endblock %}
+{% block title %}食事記録詳細{% endblock %}
 
-{% block active_meal_list %}active{% endblock %}
-
+{% block active_meal_list %}{% endblock %}
 
 {% block contents %}
 <div class="container text-faded">
@@ -22,33 +21,33 @@
 
         <div class="row">
             <div class="col-3">
-                <strong>本文</strong>
+                <strong>写真</strong>
             </div>
-            <div class="col-9">
-                {{ object.content|linebreaksbr }}
+            <div class="col-3">
+                {% if object.photo1 %}
+                    <img src="{{ object.photo1.url }}" width="300"/>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if object.photo2 %}
+                    <img src="{{ object.photo2.url }}" width="300"/>
+                {% endif %}
+            </div>
+            <div class="col-3">
+                {% if object.photo3 %}
+                    <img src="{{ object.photo3.url }}" width="300"/>
+                {% endif %}
             </div>
         </div>
 
         <hr>
 
-        <div class="row">
+                <div class="row">
             <div class="col-3">
-                <strong>写真</strong>
+                <strong>コメント</strong>
             </div>
-            <div class="col-3">
-                {% if object.photo1 %}
-                    <img src="{{ object.photo1.url }}" width="200" height="200"/>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo2 %}
-                    <img src="{{ object.photo2.url }}" width="200" height="200"/>
-                {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo3 %}
-                    <img src="{{ object.photo3.url }}" width="200" height="200"/>
-                {% endif %}
+            <div class="col-9">
+                {{ object.content|linebreaksbr }}
             </div>
         </div>
 
@@ -76,6 +75,7 @@
 
         <a class="btn btn-success mt-5 mb-3" href="{% url 'record:meal_update' object.pk %}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'record:meal_delete' object.pk %}">削除</a>
+        <a class="nav-link text-uppercase {% block active_record_list %}{% endblock %} float-right" href="{% url 'record:meal_list' %}">一覧に戻る</a>
     </div>
 </div>
 {% endblock %}

@@ -24,7 +24,7 @@ class IndexView(generic.TemplateView):
 class MealListView(LoginRequiredMixin, generic.ListView):
     model = Meal
     template_name = 'meal_list.html'
-    paginate_by = 2 # 数字は多分表示する数
+    paginate_by = 10 # 数字は多分表示する数
 
     # メソッドのオーバーライド。filterとは抽出。自分が登録した日記を自分だけが見れるという前提だからこうなっている。order_byは表示する順番。
     def get_queryset(self):
