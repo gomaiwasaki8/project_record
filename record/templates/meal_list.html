@@ -38,7 +38,9 @@
                                               {% if meal.photo3 %}
                                                   <img src="{{ meal.photo3.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
                                               {% endif %}
-                                              
+                                              {% if meal.photo4 %}
+                                                  <img src="{{ meal.photo4.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
+                                              {% endif %}
                                             </a>
                                             <p class="post-meta">{{ meal.created_at }}</p>
                                         </div>

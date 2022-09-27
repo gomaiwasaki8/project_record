@@ -23,19 +23,18 @@
             <div class="col-3">
                 <strong>写真</strong>
             </div>
-            <div class="col-3">
+            <div class="col-9">
                 {% if object.photo1 %}
-                    <img src="{{ object.photo1.url }}" width="300"/>
+                    <img src="{{ object.photo1.url }}" height="200" style = "margin-bottom : 5px"/>
                 {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo2 %}
-                    <img src="{{ object.photo2.url }}" width="300"/>
+                {% if meal.photo2 %}
+                    <img src="{{ object.photo2.url }}" height="200" style = "margin-bottom : 5px"/>
                 {% endif %}
-            </div>
-            <div class="col-3">
-                {% if object.photo3 %}
-                    <img src="{{ object.photo3.url }}" width="300"/>
+                {% if meal.photo3 %}
+                    <img src="{{ object.photo3.url }}" height="200" style = "margin-bottom : 5px"/>
+                {% endif %}
+                {% if meal.photo4 %}
+                    <img src="{{ object.photo4.url }}" height="200" style = "margin-bottom : 5px"/>
                 {% endif %}
             </div>
         </div>
@@ -75,7 +74,7 @@
 
         <a class="btn btn-success mt-5 mb-3" href="{% url 'record:meal_update' object.pk %}">編集</a>
         <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'record:meal_delete' object.pk %}">削除</a>
-        <a class="nav-link text-uppercase {% block active_record_list %}{% endblock %} float-right" href="{% url 'record:meal_list' %}">一覧に戻る</a>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'record:meal_list' %}">戻る</a>
     </div>
 </div>
 {% endblock %}
