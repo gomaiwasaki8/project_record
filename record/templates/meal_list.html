@@ -15,15 +15,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
+                        <h1>{{ request.user }}の記録一覧</h1>
                         <div class="cta-inner bg-faded rounded">
 
                             <div class="my-div-style w-100">
                                 <div class="col-lg-8 col-md-10 mx-auto">
-                                    <div class="clearfix">
+
+                                    <div class="clearfix" style = "float:right">
                                         <a class="btn btn-primary" style = "margin-bottom: 3rem" href="{% url 'record:meal_create' %}">＋新規作成</a>
                                     </div>
                                     {% for meal in meal_list %}
-                                        <div class="post-preview">
+                                        <div class="post-preview" style = "clear:both">
                                             <a href="{% url 'record:meal_detail' meal.pk %}">
 
                                               <h2 class="post-title" style="color:#212529">

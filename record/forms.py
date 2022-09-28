@@ -56,3 +56,9 @@ class MealCreateForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field in self.fields.values():
                 field.widget.attrs['class'] = 'form-control'
+
+# class IgProductForm(forms.ModelForm):
+#     brand_cd = forms.ModelChoiceField(queryset=IgMstBrand.objects.all())
+#     class Meta:
+#         model = IgMstProduct
+#         fields = ('product_nm', 'product_category', 'brand_cd', 'product_url',)

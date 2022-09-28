@@ -17,8 +17,15 @@ class OnlyYouMixin(UserPassesTestMixin):  # 日記作成者のみ閲覧できる
         # ログインユーザと日記の作成ユーザを比較し、異なればraise_exeptionの設定に従う
         return self.request.user == meal.user
 
-class IndexView(generic.TemplateView):
-    template_name = "index.html"
+class IndexView(generic.ListView):
+    model = Meal
+    template_name = 'index.html'
+    paginate_by = 5  # 数字は多分表示する数
+
+    # メソッドのオーバーライド。filterとは抽出。自分が登録した日記を自分だけが見れるという前提だからこうなっている。order_byは表示する順番。
+    def get_queryset(self):
+        records = Meal.objects.all().order_by('-created_at')
+        return records
 
 # 日記一覧表示。LoginRequiredMixinはログインしているユーザじゃないと見れないって設定
 class MealListView(LoginRequiredMixin, generic.ListView):
@@ -28,12 +35,12 @@ class MealListView(LoginRequiredMixin, generic.ListView):
 
     # メソッドのオーバーライド。filterとは抽出。自分が登録した日記を自分だけが見れるという前提だからこうなっている。order_byは表示する順番。
     def get_queryset(self):
-        diaries = Meal.objects.filter(user = self.request.user).order_by('-created_at')
-        return diaries
+        records = Meal.objects.filter(user = self.request.user).order_by('-created_at')
+        return records
 
 
 # 日記詳細表示のクラス
-class MealDetailView(LoginRequiredMixin, OnlyYouMixin, generic.DetailView):
+class MealDetailView(generic.DetailView):
     # 詳細画面を表示するにはモデル（データベースと連携させるモデル）が必要
     model = Meal
     template_name = 'meal_detail.html'

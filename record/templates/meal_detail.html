@@ -8,7 +8,21 @@
 {% block contents %}
 <div class="container text-faded">
     <div class="my-div-style w-100">
+
         <div class="row">
+
+            <div class="col-3">
+                <strong>ユーザ名</strong>
+            </div>
+            <div class="col-9">
+                {{ object.user }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+
             <div class="col-3">
                 <strong>タイトル</strong>
             </div>
@@ -72,9 +86,12 @@
             </div>
         </div>
 
-        <a class="btn btn-success mt-5 mb-3" href="{% url 'record:meal_update' object.pk %}">編集</a>
-        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'record:meal_delete' object.pk %}">削除</a>
-        <a class="btn btn-secondary mt-5 ml-2 mb-3" href="{% url 'record:meal_list' %}">戻る</a>
+        {% if request.user == object.user and user.is_authenticated %}
+            <a class="btn btn-success mt-5 mb-3" href="{% url 'record:meal_update' object.pk %}">編集</a>
+            <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'record:meal_delete' object.pk %}">削除</a>
+        {% endif %}
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" style = "float:right" href="{% url 'record:meal_list' %}">一覧</a>
+        <a class="btn btn-secondary mt-5 ml-2 mb-3" style = "float:right" href="{% url 'record:index' %}">みんなの投稿</a>
     </div>
 </div>
 {% endblock %}

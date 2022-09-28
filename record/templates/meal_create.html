@@ -8,13 +8,15 @@
 {% block contents %}
 <div class="container">
     <div class="row">
-        <div class="my-div-style w-100">
+        <div class="my-div-style w-100 text-center">
             <form method="POST" enctype='multipart/form-data'>
+                <p class = "text-faded">作成した記録は全て公開されます。</p>
                 {% csrf_token %}
                 <table class="table text-faded">
                     {{ form.as_table }}
                 </table>
                 <button class="btn btn-primary" type="submit">作成</button>
+                <a class="btn btn-secondary ml-2" href="{% url 'record:meal_list' %}">一覧に戻る</a>
             </form>
         </div>
     </div>

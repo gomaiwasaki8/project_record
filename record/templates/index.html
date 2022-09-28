@@ -14,27 +14,102 @@
     {% endblock %}
 
     {% block contents %}
-        <section class="page-section clearfix">
+        {% if user.is_authenticated %}
+        {% else %}
+            <section class="page-section clearfix">
+                <div class="container">
+                    <div class="intro">
+                        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="static/assets/img/home.jpg" alt="..." />
+                        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+                            <h2 class="section-heading mb-4">
+                                <span class="section-heading-upper">このサイトの利用のしかた</span>
+                                <span class="section-heading-lower">食事を記録しよう！</span>
+                            </h2>
+                            <p class="mb-3">今日の食事を記録することで、自分がどれくらい健康な食生活を送れているかを見てみよう！また、レシピを乗せておけば自分だけのレシピ集に！さらにどこで買った、いつ食べたかも記録できます！無料ですべて利用できるサイトとなっております！</p>
+                            <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl text-uppercase" href="{% url 'account_signup' %}">新規会員登録はこちら</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+          {% endif %}
+
+        <!-- ここに新着 -->
+
+        <section class="page-section cta">
             <div class="container">
-                <div class="intro">
-                    <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="static/assets/img/intro.jpg" alt="..." />
-                    <div class="intro-text left-0 text-center bg-faded p-5 rounded">
-                        <h2 class="section-heading mb-4">
-                            <span class="section-heading-upper">このサイトの利用のしかた</span>
-                            <span class="section-heading-lower">食事を記録しよう！</span>
-                        </h2>
-                        <p class="mb-3">今日の食事を記録することで、自分がどれくらい健康な食生活を送れているかを見てみよう！また、レシピを乗せておけば自分だけのレシピ集に！さらにどこで買った、いつ食べたかも記録できます！無料ですべて利用できるサイトとなっております！</p>
-                        {% if user.is_authenticated %}
-                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl text-uppercase {% block active_record_list %}{% endblock %}" href="{% url 'record:meal_list' %}">記録一覧はこちら</a></div>
-                        {% else %}
-                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl text-uppercase" href="{% url 'account_signup' %}">新規会員登録はこちら</a></div>
-                        {% endif %}
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                      <h1>みんなの記録</h1>
+                        <div class="cta-inner bg-faded rounded">
+
+                            <div class="my-div-style w-100">
+                                <div class="col-lg-8 col-md-10 mx-auto">
+
+                                    {% for meal in meal_list %}
+                                        <div class="post-preview">
+                                            <a href="{% url 'record:meal_detail' meal.pk %}">
+                                              <h2 class="post-title" style="color:#212529">
+                                                {{ meal.title }}
+                                              </h2>
+                                              {% if meal.photo1 %}
+                                                  <img src="{{ meal.photo1.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
+                                              {% endif %}
+                                              {% if meal.photo2 %}
+                                                  <img src="{{ meal.photo2.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
+                                              {% endif %}
+                                              {% if meal.photo3 %}
+                                                  <img src="{{ meal.photo3.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
+                                              {% endif %}
+                                              {% if meal.photo4 %}
+                                                  <img src="{{ meal.photo4.url }}" width="280" height="200" style = "margin-bottom : 5px"/>
+                                              {% endif %}
+                                            </a>
+                                            <p class="post-meta">ユーザ：{{ meal.user }}　{{ meal.created_at }}</p>
+                                        </div>
+                                        <hr>
+                                    {% empty %}
+                                        <p>日記がありません。</p>
+                                    {% endfor %}
+
+                                    <!-- ページネーション処理 -->
+                                    {% if is_paginated %}
+                                        <ul class="pagination">
+                                            <!-- 前ページへのリンク -->
+                                            {% if page_obj.has_previous %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+
+                                            <!-- ページ数表示 -->
+                                            {% for page_num in page_obj.paginator.page_range %}
+                                                {% if page_obj.number == page_num %}
+                                                    <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            <!-- 次ページへのリンク -->
+                                            {% if page_obj.has_next %}
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- ここに新着 -->
 
         <section class="page-section cta">
             <div class="container">
